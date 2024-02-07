@@ -1,7 +1,9 @@
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:sanityio_poc/app/app.locator.dart';
+import 'package:sanityio_poc/services/sanityio_service.dart';
 import 'package:stacked_services/stacked_services.dart';
+
 // @stacked-import
 
 import 'test_helpers.mocks.dart';
@@ -10,13 +12,15 @@ import 'test_helpers.mocks.dart';
   MockSpec<NavigationService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<BottomSheetService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<DialogService>(onMissingStub: OnMissingStub.returnDefault),
-  // @stacked-mock-spec
+  MockSpec<SanityIOService>(onMissingStub: OnMissingStub.returnDefault),
+// @stacked-mock-spec
 ])
 void registerServices() {
   getAndRegisterNavigationService();
   getAndRegisterBottomSheetService();
   getAndRegisterDialogService();
-  // @stacked-mock-register
+  getAndRegisterSanityIOService();
+// @stacked-mock-register
 }
 
 MockNavigationService getAndRegisterNavigationService() {
@@ -69,6 +73,12 @@ MockDialogService getAndRegisterDialogService() {
   return service;
 }
 
+MockSanityIOService getAndRegisterSanityIOService() {
+  _removeRegistrationIfExists<SanityIOService>();
+  final service = MockSanityIOService();
+  locator.registerSingleton<SanityIOService>(service);
+  return service;
+}
 // @stacked-mock-create
 
 void _removeRegistrationIfExists<T extends Object>() {
