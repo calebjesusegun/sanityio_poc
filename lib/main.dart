@@ -5,11 +5,14 @@ import 'package:sanityio_poc/app/app.locator.dart';
 import 'package:sanityio_poc/app/app.router.dart';
 import 'package:stacked_services/stacked_services.dart';
 
+// final _sanityIOService = locator<SanityIOService>();
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await setupLocator();
   setupDialogUi();
   setupBottomSheetUi();
+
   runApp(const MainApp());
 }
 
@@ -19,6 +22,7 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       initialRoute: Routes.startupView,
       onGenerateRoute: StackedRouter().onGenerateRoute,
       navigatorKey: StackedService.navigatorKey,
