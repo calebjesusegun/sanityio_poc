@@ -1,16 +1,15 @@
-import 'dart:convert';
+import 'package:sanityio_poc/services/api_service.dart';
 
-import 'package:http/http.dart' as http;
-
+import '../app/app.locator.dart';
 import '../app/app.logger.dart';
-import '../models/BlogPost.dart';
+import '../models/blog_post.dart';
+import '../models/products.dart';
 
 class SanityIOService {
   final log = getLogger('SanityIOService');
+  final _apiService = locator<ApiService>();
 
-  Future initializeSanityClient() async {
-    const projectId = 'ft7xak3z';
-    const dataset = 'production';
+  Future<List<Post>> getBlogPosts() async {
     const String query = """
      {
       "posts": *[_type=='post'] {
@@ -26,18 +25,32 @@ class SanityIOService {
       'query': query
     };
 
-    final uri = Uri(
-      scheme: 'https',
-      host: '$projectId.api.sanity.io',
-      path: '/v2024-02-06/data/query/$dataset',
-      queryParameters: queryParameters,
-    );
+    var data = await _apiService.getData(queryParameter: queryParameters);
 
-    final http.Client client = http.Client();
-    final http.Response response = await client.get(uri);
-    final body = jsonDecode(response.body);
-    final result = BlogPost.fromJson(body);
+    final result = BlogPost.fromJson(data);
     log.i("Response Result $result");
     return result.result!.posts;
+  }
+
+  Future<List<Pdf>> getProducts() async {
+    const String query = """
+     {
+     "pdfs": *[_type=='eco-tales'] |order(_createdAt desc) {
+     ..., 
+     "fileURL": file.asset->url
+     },
+     "total": count(*[_type == "eco-tales"])
+     }
+        """;
+
+    final Map<String, dynamic> queryParameters = <String, dynamic>{
+      'query': query
+    };
+
+    var data = await _apiService.getData(queryParameter: queryParameters);
+
+    final result = Products.fromJson(data);
+    log.i("Response Result $result");
+    return result.result!.pdfs;
   }
 }
