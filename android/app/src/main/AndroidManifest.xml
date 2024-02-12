@@ -19,7 +19,7 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.INTERNET"/>
     <application
-        android:label="sanityio_poc"
+        android:label="Oaks Intelligence"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
