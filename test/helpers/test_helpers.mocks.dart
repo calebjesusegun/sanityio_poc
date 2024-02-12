@@ -7,9 +7,13 @@ import 'dart:async' as _i6;
 import 'dart:ui' as _i7;
 
 import 'package:flutter/material.dart' as _i5;
+import 'package:http/retry.dart' as _i12;
 import 'package:logger/src/logger.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:mockito/src/dummies.dart' as _i4;
+import 'package:sanityio_poc/models/blog_post.dart' as _i9;
+import 'package:sanityio_poc/models/products.dart' as _i10;
+import 'package:sanityio_poc/services/api_service.dart' as _i11;
 import 'package:sanityio_poc/services/sanityio_service.dart' as _i8;
 import 'package:stacked_services/stacked_services.dart' as _i3;
 
@@ -697,10 +701,131 @@ class MockSanityIOService extends _i1.Mock implements _i8.SanityIOService {
       ) as _i2.Logger);
 
   @override
-  _i6.Future<dynamic> initializeSanityClient() => (super.noSuchMethod(
+  _i6.Future<List<_i9.Post>> getBlogPosts() => (super.noSuchMethod(
         Invocation.method(
-          #initializeSanityClient,
+          #getBlogPosts,
           [],
+        ),
+        returnValue: _i6.Future<List<_i9.Post>>.value(<_i9.Post>[]),
+        returnValueForMissingStub:
+            _i6.Future<List<_i9.Post>>.value(<_i9.Post>[]),
+      ) as _i6.Future<List<_i9.Post>>);
+
+  @override
+  _i6.Future<List<_i10.Pdf>> getProducts() => (super.noSuchMethod(
+        Invocation.method(
+          #getProducts,
+          [],
+        ),
+        returnValue: _i6.Future<List<_i10.Pdf>>.value(<_i10.Pdf>[]),
+        returnValueForMissingStub:
+            _i6.Future<List<_i10.Pdf>>.value(<_i10.Pdf>[]),
+      ) as _i6.Future<List<_i10.Pdf>>);
+}
+
+/// A class which mocks [ApiService].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockApiService extends _i1.Mock implements _i11.ApiService {
+  @override
+  _i2.Logger get log => (super.noSuchMethod(
+        Invocation.getter(#log),
+        returnValue: _FakeLogger_0(
+          this,
+          Invocation.getter(#log),
+        ),
+        returnValueForMissingStub: _FakeLogger_0(
+          this,
+          Invocation.getter(#log),
+        ),
+      ) as _i2.Logger);
+
+  @override
+  _i12.RetryClient get client => (super.noSuchMethod(
+        Invocation.getter(#client),
+        returnValue: _i4.dummyValue<_i12.RetryClient>(
+          this,
+          Invocation.getter(#client),
+        ),
+        returnValueForMissingStub: _i4.dummyValue<_i12.RetryClient>(
+          this,
+          Invocation.getter(#client),
+        ),
+      ) as _i12.RetryClient);
+
+  @override
+  String get projectId => (super.noSuchMethod(
+        Invocation.getter(#projectId),
+        returnValue: _i4.dummyValue<String>(
+          this,
+          Invocation.getter(#projectId),
+        ),
+        returnValueForMissingStub: _i4.dummyValue<String>(
+          this,
+          Invocation.getter(#projectId),
+        ),
+      ) as String);
+
+  @override
+  String get dataset => (super.noSuchMethod(
+        Invocation.getter(#dataset),
+        returnValue: _i4.dummyValue<String>(
+          this,
+          Invocation.getter(#dataset),
+        ),
+        returnValueForMissingStub: _i4.dummyValue<String>(
+          this,
+          Invocation.getter(#dataset),
+        ),
+      ) as String);
+
+  @override
+  _i6.Future<dynamic> getData({
+    String? domain,
+    String? subDomain,
+    dynamic failedResponseData,
+    Map<String, dynamic>? queryParameter,
+    Map<String, String>? header,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getData,
+          [],
+          {
+            #domain: domain,
+            #subDomain: subDomain,
+            #failedResponseData: failedResponseData,
+            #queryParameter: queryParameter,
+            #header: header,
+          },
+        ),
+        returnValue: _i6.Future<dynamic>.value(),
+        returnValueForMissingStub: _i6.Future<dynamic>.value(),
+      ) as _i6.Future<dynamic>);
+
+  @override
+  _i6.Future<dynamic> postData({
+    required String? domain,
+    required String? subDomain,
+    required dynamic body,
+    required bool? isJson,
+    dynamic failedResponseData,
+    Map<String, String>? queryParameter,
+    Map<String, String>? header,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #postData,
+          [],
+          {
+            #domain: domain,
+            #subDomain: subDomain,
+            #body: body,
+            #isJson: isJson,
+            #failedResponseData: failedResponseData,
+            #queryParameter: queryParameter,
+            #header: header,
+          },
         ),
         returnValue: _i6.Future<dynamic>.value(),
         returnValueForMissingStub: _i6.Future<dynamic>.value(),

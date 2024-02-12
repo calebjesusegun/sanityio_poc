@@ -1,16 +1,18 @@
-import 'package:sanityio_poc/app/app.locator.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
 
-import '../../../app/app.logger.dart';
-import '../../../models/BlogPost.dart';
-import '../../../services/sanityio_service.dart';
+import '../../../app/app.locator.dart';
 
-class HomeViewModel extends BaseViewModel {
-  final _sanityIOService = locator<SanityIOService>();
-  final log = getLogger('HomeViewModel');
+class HomeViewModel extends IndexTrackingViewModel {
+  final _dialogService = locator<DialogService>();
+  final _bottomSheetService = locator<BottomSheetService>();
 
-  Future<List<Post>> getBlogPost() async {
-    List<Post> posts = await _sanityIOService.initializeSanityClient();
-    return posts;
+  String get counterLabel => 'Counter is: $_counter';
+
+  int _counter = 0;
+
+  void incrementCounter() {
+    _counter++;
+    rebuildUi();
   }
 }

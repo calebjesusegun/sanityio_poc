@@ -1,6 +1,7 @@
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:sanityio_poc/app/app.locator.dart';
+import 'package:sanityio_poc/services/api_service.dart';
 import 'package:sanityio_poc/services/sanityio_service.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -13,6 +14,7 @@ import 'test_helpers.mocks.dart';
   MockSpec<BottomSheetService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<DialogService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<SanityIOService>(onMissingStub: OnMissingStub.returnDefault),
+  MockSpec<ApiService>(onMissingStub: OnMissingStub.returnDefault),
 // @stacked-mock-spec
 ])
 void registerServices() {
@@ -20,6 +22,7 @@ void registerServices() {
   getAndRegisterBottomSheetService();
   getAndRegisterDialogService();
   getAndRegisterSanityIOService();
+  getAndRegisterProductsService();
 // @stacked-mock-register
 }
 
@@ -77,6 +80,13 @@ MockSanityIOService getAndRegisterSanityIOService() {
   _removeRegistrationIfExists<SanityIOService>();
   final service = MockSanityIOService();
   locator.registerSingleton<SanityIOService>(service);
+  return service;
+}
+
+MockApiService getAndRegisterProductsService() {
+  _removeRegistrationIfExists<ApiService>();
+  final service = MockApiService();
+  locator.registerSingleton<ApiService>(service);
   return service;
 }
 // @stacked-mock-create
